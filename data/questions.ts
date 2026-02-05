@@ -56,14 +56,14 @@ const category1Questions: Question[] = [
     id: "1-2",
     difficulty: "Kolay",
     title: "Ev Fiyatları",
-    context: `Bir evin satış fiyatını etkileyen faktörleri inceleyen model aşağıdadır. "fiyat" satış fiyatını (bin TL), "metrekare" evin büyüklüğünü, "oda" oda sayısını, "merkez" şehir merkezine uzaklığı (km) göstermektedir.`,
-    model: `\\text{fiyat} = \\beta_0 + \\beta_1 \\text{metrekare} + \\beta_2 \\text{oda} + \\beta_3 \\text{merkez} + u`,
+    context: `Bir evin satış fiyatını etkileyen faktörleri inceleyen model aşağıdadır. "fiyat" satış fiyatını (bin TL), "bina_yasi" binanın yaşını (yıl), "kat" bulunduğu katı, "merkez" şehir merkezine uzaklığı (km) göstermektedir.`,
+    model: `\\text{fiyat} = \\beta_0 + \\beta_1 \\text{bina\\_yasi} + \\beta_2 \\text{kat} + \\beta_3 \\text{merkez} + u`,
     parts: [
       {
         id: "a",
         question: `$H_0: \\beta_3 = 0$ hipotezi ne anlama gelmektedir?`,
         type: 'open-ended',
-        solution: `$H_0: \\beta_3 = 0$ hipotezi, metrekare ve oda sayısı sabitken, şehir merkezine uzaklığın ev fiyatı üzerinde istatistiksel olarak anlamlı bir etkisinin olmadığını ifade eder.`
+        solution: `$H_0: \\beta_3 = 0$ hipotezi, bina yaşı ve kat sabitken, şehir merkezine uzaklığın ev fiyatı üzerinde istatistiksel olarak anlamlı bir etkisinin olmadığını ifade eder.`
       },
       {
         id: "b",
@@ -252,8 +252,8 @@ const category2Questions: Question[] = [
     difficulty: "Orta",
     title: "GANO Modeli - Üniversite",
     context: `Üniversite genel not ortalamasının (GANO) öngörüsü için tahmin edilmiş model aşağıdaki gibidir. Modelde "ekonsaat", öğrencinin Ekonometrik Analiz 2 dersi için harcamış olduğu toplam çalışma saatini, "videosaat", öğrencinin bilgisayardan video izlemek için harcadığı haftalık ortalama saati, "log(liseMO)" ise, öğrencinin lise mezuniyet ortalamasını göstermektedir.`,
-    model: `\\widehat{GANO} = 1.292 + 0.014 \\text{ekonsaat} - 0.013 \\text{videosaat} + 0.21 \\log(\\text{liseMO})`,
-    additionalInfo: `\\begin{array}{cccc} & (0.075) & (0.007) & (0.0052) & (0.07) \\end{array} \\quad n = 33, \\quad R^2 = 0.278`,
+    model: `\\widehat{GANO} = \\underset{(0.075)}{1.292} + \\underset{(0.007)}{0.014} \\text{ekonsaat} - \\underset{(0.0052)}{0.013} \\text{videosaat} + \\underset{(0.07)}{0.21} \\log(\\text{liseMO})`,
+    additionalInfo: `n = 33, \\quad R^2 = 0.278`,
     parts: [
       {
         id: "a",
@@ -299,8 +299,8 @@ const category2Questions: Question[] = [
     difficulty: "Orta",
     title: "Maaş Modeli - İşletme",
     context: `Çalışan maaşlarının öngörüsü için tahmin edilmiş model aşağıdaki gibidir. Modelde "tecrübe", çalışanın toplam iş tecrübesini (yıl), "eğitim", çalışanın eğitim süresini (yıl), "log(yaş)" ise çalışanın yaşının logaritmasını göstermektedir.`,
-    model: `\\widehat{\\text{maaş}} = 2850 + 185 \\text{tecrübe} + 320 \\text{eğitim} + 1250 \\log(\\text{yaş})`,
-    additionalInfo: `\\begin{array}{cccc} & (420) & (37) & (80) & (312.5) \\end{array} \\quad n = 48, \\quad R^2 = 0.412`,
+    model: `\\widehat{\\text{maaş}} = \\underset{(420)}{2850} + \\underset{(37)}{185} \\text{tecrübe} + \\underset{(80)}{320} \\text{eğitim} + \\underset{(312.5)}{1250} \\log(\\text{yaş})`,
+    additionalInfo: `n = 48, \\quad R^2 = 0.412`,
     parts: [
       {
         id: "a",
@@ -346,8 +346,8 @@ const category2Questions: Question[] = [
     difficulty: "Kolay",
     title: "Satış Modeli - Perakende",
     context: `Mağaza satışlarının öngörüsü için tahmin edilmiş model aşağıdaki gibidir. Modelde "reklam", aylık reklam harcamasını (bin TL), "personel", çalışan sayısını, "konum" ise merkeze uzaklığı (km) göstermektedir.`,
-    model: `\\widehat{\\text{satış}} = 45 + 3.6 \\text{reklam} + 2.1 \\text{personel} - 1.8 \\text{konum}`,
-    additionalInfo: `\\begin{array}{cccc} & (12) & (1.2) & (0.7) & (0.6) \\end{array} \\quad n = 28, \\quad R^2 = 0.523`,
+    model: `\\widehat{\\text{satış}} = \\underset{(12)}{45} + \\underset{(1.2)}{3.6} \\text{reklam} + \\underset{(0.7)}{2.1} \\text{personel} - \\underset{(0.6)}{1.8} \\text{konum}`,
+    additionalInfo: `n = 28, \\quad R^2 = 0.523`,
     parts: [
       {
         id: "a",
@@ -393,8 +393,8 @@ const category2Questions: Question[] = [
     difficulty: "Kolay",
     title: "Verimlilik Modeli - Üretim",
     context: `Fabrika verimliliğinin öngörüsü için tahmin edilmiş model aşağıdaki gibidir. Modelde "makine", makine sayısını, "işçi", işçi sayısını, "enerji" ise enerji tüketimini (kWh) göstermektedir.`,
-    model: `\\widehat{\\text{verim}} = 120 + 8.4 \\text{makine} + 2.8 \\text{işçi} + 0.14 \\text{enerji}`,
-    additionalInfo: `\\begin{array}{cccc} & (25) & (2.1) & (0.7) & (0.07) \\end{array} \\quad n = 42, \\quad R^2 = 0.645`,
+    model: `\\widehat{\\text{verim}} = \\underset{(25)}{120} + \\underset{(2.1)}{8.4} \\text{makine} + \\underset{(0.7)}{2.8} \\text{işçi} + \\underset{(0.07)}{0.14} \\text{enerji}`,
+    additionalInfo: `n = 42, \\quad R^2 = 0.645`,
     parts: [
       {
         id: "a",
@@ -440,8 +440,8 @@ const category2Questions: Question[] = [
     difficulty: "Orta",
     title: "Tüketim Modeli - Hanehalkı",
     context: `Hanehalkı tüketim harcamalarının öngörüsü için tahmin edilmiş model aşağıdaki gibidir. Modelde "gelir", aylık geliri (bin TL), "fert", hanedeki fert sayısını, "log(tasarruf)" ise tasarruf miktarının logaritmasını göstermektedir.`,
-    model: `\\widehat{\\text{tüketim}} = 1.85 + 0.72 \\text{gelir} + 0.45 \\text{fert} - 0.18 \\log(\\text{tasarruf})`,
-    additionalInfo: `\\begin{array}{cccc} & (0.42) & (0.12) & (0.15) & (0.06) \\end{array} \\quad n = 56, \\quad R^2 = 0.712`,
+    model: `\\widehat{\\text{tüketim}} = \\underset{(0.42)}{1.85} + \\underset{(0.12)}{0.72} \\text{gelir} + \\underset{(0.15)}{0.45} \\text{fert} - \\underset{(0.06)}{0.18} \\log(\\text{tasarruf})`,
+    additionalInfo: `n = 56, \\quad R^2 = 0.712`,
     parts: [
       {
         id: "a",
@@ -487,8 +487,8 @@ const category2Questions: Question[] = [
     difficulty: "Zor",
     title: "Yatırım Modeli - Finans",
     context: `Şirket yatırımlarının öngörüsü için tahmin edilmiş model aşağıdaki gibidir. Modelde "nakit", nakit akışını (milyon TL), "borç", borç oranını (%), "log(aktif)" ise toplam aktiflerin logaritmasını göstermektedir.`,
-    model: `\\widehat{\\text{yatırım}} = -2.35 + 0.28 \\text{nakit} - 0.045 \\text{borç} + 1.85 \\log(\\text{aktif})`,
-    additionalInfo: `\\begin{array}{cccc} & (1.12) & (0.04) & (0.015) & (0.37) \\end{array} \\quad n = 65, \\quad R^2 = 0.534`,
+    model: `\\widehat{\\text{yatırım}} = \\underset{(1.12)}{-2.35} + \\underset{(0.04)}{0.28} \\text{nakit} - \\underset{(0.015)}{0.045} \\text{borç} + \\underset{(0.37)}{1.85} \\log(\\text{aktif})`,
+    additionalInfo: `n = 65, \\quad R^2 = 0.534`,
     parts: [
       {
         id: "a",
@@ -534,8 +534,8 @@ const category2Questions: Question[] = [
     difficulty: "Zor",
     title: "İhracat Modeli - Dış Ticaret",
     context: `Firma ihracatının öngörüsü için tahmin edilmiş model aşağıdaki gibidir. Modelde "kur", döviz kurunu, "kapasite", üretim kapasitesi kullanım oranını (%), "log(ArGe)" ise Ar-Ge harcamalarının logaritmasını göstermektedir.`,
-    model: `\\log(\\widehat{\\text{ihracat}}) = 2.15 + 0.32 \\text{kur} + 0.024 \\text{kapasite} + 0.48 \\log(\\text{ArGe})`,
-    additionalInfo: `\\begin{array}{cccc} & (0.85) & (0.08) & (0.008) & (0.12) \\end{array} \\quad n = 72, \\quad R^2 = 0.623`,
+    model: `\\log(\\widehat{\\text{ihracat}}) = \\underset{(0.85)}{2.15} + \\underset{(0.08)}{0.32} \\text{kur} + \\underset{(0.008)}{0.024} \\text{kapasite} + \\underset{(0.12)}{0.48} \\log(\\text{ArGe})`,
+    additionalInfo: `n = 72, \\quad R^2 = 0.623`,
     parts: [
       {
         id: "a",
@@ -586,8 +586,8 @@ const category2Questions: Question[] = [
     difficulty: "Kolay",
     title: "Kira Modeli - Emlak",
     context: `Daire kiralarının öngörüsü için tahmin edilmiş model aşağıdaki gibidir. Modelde "alan", daire alanını (m²), "kat", bulunduğu katı, "bina_yaşı" ise binanın yaşını göstermektedir.`,
-    model: `\\widehat{\\text{kira}} = 850 + 32 \\text{alan} + 45 \\text{kat} - 28 \\text{bina\\_yaşı}`,
-    additionalInfo: `\\begin{array}{cccc} & (185) & (8) & (22.5) & (7) \\end{array} \\quad n = 38, \\quad R^2 = 0.687`,
+    model: `\\widehat{\\text{kira}} = \\underset{(185)}{850} + \\underset{(8)}{32} \\text{alan} + \\underset{(22.5)}{45} \\text{kat} - \\underset{(7)}{28} \\text{bina\\_yaşı}`,
+    additionalInfo: `n = 38, \\quad R^2 = 0.687`,
     parts: [
       {
         id: "a",
@@ -633,8 +633,8 @@ const category2Questions: Question[] = [
     difficulty: "Zor",
     title: "Büyüme Modeli - Makroekonomi",
     context: `Ülke ekonomik büyümesinin öngörüsü için tahmin edilmiş model aşağıdaki gibidir. Modelde "yatırım", yatırım/GSYİH oranını (%), "enflasyon", enflasyon oranını (%), "log(nüfus)" ise nüfusun logaritmasını göstermektedir.`,
-    model: `\\widehat{\\text{büyüme}} = 3.42 + 0.18 \\text{yatırım} - 0.12 \\text{enflasyon} + 0.85 \\log(\\text{nüfus})`,
-    additionalInfo: `\\begin{array}{cccc} & (1.25) & (0.03) & (0.04) & (0.17) \\end{array} \\quad n = 85, \\quad R^2 = 0.478`,
+    model: `\\widehat{\\text{büyüme}} = \\underset{(1.25)}{3.42} + \\underset{(0.03)}{0.18} \\text{yatırım} - \\underset{(0.04)}{0.12} \\text{enflasyon} + \\underset{(0.17)}{0.85} \\log(\\text{nüfus})`,
+    additionalInfo: `n = 85, \\quad R^2 = 0.478`,
     parts: [
       {
         id: "a",
@@ -680,8 +680,8 @@ const category2Questions: Question[] = [
     difficulty: "Orta",
     title: "Sağlık Modeli - Hastane",
     context: `Hasta kalış süresinin öngörüsü için tahmin edilmiş model aşağıdaki gibidir. Modelde "yaş", hasta yaşını, "kronik", kronik hastalık sayısını, "ameliyat" ise ameliyat olup olmadığını (1=evet, 0=hayır) göstermektedir.`,
-    model: `\\widehat{\\text{gün}} = 1.2 + 0.08 \\text{yaş} + 1.5 \\text{kronik} + 3.2 \\text{ameliyat}`,
-    additionalInfo: `\\begin{array}{cccc} & (0.45) & (0.02) & (0.375) & (0.8) \\end{array} \\quad n = 120, \\quad R^2 = 0.562`,
+    model: `\\widehat{\\text{gün}} = \\underset{(0.45)}{1.2} + \\underset{(0.02)}{0.08} \\text{yaş} + \\underset{(0.375)}{1.5} \\text{kronik} + \\underset{(0.8)}{3.2} \\text{ameliyat}`,
+    additionalInfo: `n = 120, \\quad R^2 = 0.562`,
     parts: [
       {
         id: "a",
