@@ -273,7 +273,7 @@ const category2Questions: Question[] = [
       },
       {
         id: "c",
-        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.05$ için kritik değer nedir? (cevap=2.04)`,
+        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.05$ için kritik değer nedir?`,
         type: 'multiple-choice',
         options: ['1.64', '1.96', '2.04', '2.45'],
         correctAnswer: '2.04',
@@ -725,6 +725,542 @@ const category2Questions: Question[] = [
 ];
 
 // ===========================================
+// KATEGORİ 3: Güven Aralığı ve Hipotez Testi (Boşluk Doldurma + Çoktan Seçmeli)
+// ===========================================
+const category3Questions: Question[] = [
+  {
+    id: "3-1",
+    difficulty: "Orta",
+    title: "Ev Fiyatı Modeli - Emlak",
+    context: `Ev fiyatını (fiyat), arsa büyüklüğü (arsa), evin $m^2$ cinsinden büyüklüğü (alan), yatak odası sayısı (yatakodası) ve bina yaşı (yaş) ile açıklayan ekonometrik model aşağıdaki gibidir.`,
+    model: `\\widehat{fiyat} = \\underset{(0.099)}{-10.65} + \\underset{(0.041)}{0.164} \\log(arsa) + \\underset{(0.62)}{0.93} \\log(alan) + \\underset{(0.025)}{0.05} (yatakodası) - \\underset{(0.001)}{0.02} (yaş)`,
+    additionalInfo: `n = 1680, \\quad R^2 = 0.642`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu model için $|t_{\\log(arsa)}|$ değeri kaçtır?`,
+        type: 'multiple-choice',
+        options: ['2', '3', '4', '5'],
+        correctAnswer: '4',
+        solution: `$t_{\\log(arsa)} = \\frac{\\hat{\\beta}_{\\log(arsa)}}{se(\\hat{\\beta}_{\\log(arsa)})} = \\frac{0.164}{0.041} = 4$`
+      },
+      {
+        id: "b",
+        question: `Bu model için serbestlik derecesi nedir?`,
+        type: 'multiple-choice',
+        options: ['1674', '1675', '1676', '1679'],
+        correctAnswer: '1675',
+        solution: `Serbestlik derecesi = $n - k - 1 = 1680 - 4 - 1 = 1675$`
+      },
+      {
+        id: "c",
+        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.05$ için kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['1.64', '1.96', '2.00', '2.58'],
+        correctAnswer: '1.96',
+        solution: `Serbestlik derecesi 1675 olduğundan (yeterince büyük), $t_{kritik} \\approx z_{kritik} = 1.96$`
+      },
+      {
+        id: "d",
+        question: `$\\beta_{\\log(arsa)}$ için güven aralığı $[0.244 < \\beta_{\\log(arsa)} < \\text{____}]$ şeklinde hesaplanır. Üst sınırı bulunuz.`,
+        type: 'open-ended',
+        solution: `Güven aralığı formülü: $\\hat{\\beta} \\pm t_{kritik} \\times se(\\hat{\\beta})$\n\nÜst sınır = $0.164 + 1.96 \\times 0.041 = 0.164 + 0.080 = 0.244$\nÜst sınır = $0.164 + 0.080 = 0.244$\n\nDolayısıyla: Alt sınır = $0.164 - 0.080 = 0.084$, Üst sınır = $0.244$\n\n**Cevap: 0.244** (veya yaklaşık 0.24)`
+      },
+      {
+        id: "e",
+        question: `Bu modelde çift yönlü testte anlamlılık düzeyi $\\alpha = 0.05$ için $H_0: \\beta_{\\log(arsa)} = 0$ hipotezi ________. Buna göre log(arsa) ile fiyat arasında istatistiksel olarak anlamlı bir ilişki ________.`,
+        type: 'multiple-choice',
+        options: [
+          'reddedilmektedir / bulunmaktadır',
+          'reddedilmektedir / bulunmamaktadır',
+          'reddedilmemektedir / bulunmaktadır',
+          'reddedilmemektedir / bulunmamaktadır'
+        ],
+        correctAnswer: 'reddedilmektedir / bulunmaktadır',
+        solution: `$|t_{\\log(arsa)}| = 4 > 1.96 = t_{kritik}$ olduğundan $H_0$ **reddedilmektedir**. Bu durumda log(arsa) ile fiyat arasında istatistiksel olarak anlamlı bir ilişki **bulunmaktadır**.`
+      }
+    ]
+  },
+  {
+    id: "3-2",
+    difficulty: "Orta",
+    title: "Maaş Modeli - İnsan Kaynakları",
+    context: `Çalışan maaşını (maaş), tecrübe (yıl), eğitim süresi (yıl), şirket büyüklüğü (log_calisan) ve performans puanı ile açıklayan ekonometrik model aşağıdaki gibidir.`,
+    model: `\\widehat{maaş} = \\underset{(0.85)}{2.45} + \\underset{(0.025)}{0.075} (tecrübe) + \\underset{(0.04)}{0.12} (eğitim) + \\underset{(0.03)}{0.09} \\log(calisan) + \\underset{(0.008)}{0.024} (performans)`,
+    additionalInfo: `n = 520, \\quad R^2 = 0.587`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu model için $|t_{tecrübe}|$ değeri kaçtır?`,
+        type: 'multiple-choice',
+        options: ['2', '3', '4', '5'],
+        correctAnswer: '3',
+        solution: `$t_{tecrübe} = \\frac{0.075}{0.025} = 3$`
+      },
+      {
+        id: "b",
+        question: `Bu model için serbestlik derecesi nedir?`,
+        type: 'multiple-choice',
+        options: ['514', '515', '516', '519'],
+        correctAnswer: '515',
+        solution: `Serbestlik derecesi = $n - k - 1 = 520 - 4 - 1 = 515$`
+      },
+      {
+        id: "c",
+        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.05$ için kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['1.64', '1.96', '2.00', '2.58'],
+        correctAnswer: '1.96',
+        solution: `Serbestlik derecesi 515 olduğundan, $t_{kritik} \\approx 1.96$`
+      },
+      {
+        id: "d",
+        question: `$\\beta_{tecrübe}$ için %95 güven aralığının alt ve üst sınırlarını hesaplayınız.`,
+        type: 'open-ended',
+        solution: `Alt sınır = $0.075 - 1.96 \\times 0.025 = 0.075 - 0.049 = 0.026$\nÜst sınır = $0.075 + 1.96 \\times 0.025 = 0.075 + 0.049 = 0.124$\n\n**Güven Aralığı: [0.026, 0.124]**`
+      },
+      {
+        id: "e",
+        question: `$H_0: \\beta_{tecrübe} = 0$ hipotezi $\\alpha = 0.05$ düzeyinde ________. Tecrübe ile maaş arasında istatistiksel olarak anlamlı bir ilişki ________.`,
+        type: 'multiple-choice',
+        options: [
+          'reddedilmektedir / bulunmaktadır',
+          'reddedilmektedir / bulunmamaktadır',
+          'reddedilmemektedir / bulunmaktadır',
+          'reddedilmemektedir / bulunmamaktadır'
+        ],
+        correctAnswer: 'reddedilmektedir / bulunmaktadır',
+        solution: `$|t_{tecrübe}| = 3 > 1.96$ olduğundan $H_0$ **reddedilmektedir**. Tecrübe ile maaş arasında istatistiksel olarak anlamlı bir ilişki **bulunmaktadır**.`
+      }
+    ]
+  },
+  {
+    id: "3-3",
+    difficulty: "Kolay",
+    title: "Satış Modeli - Perakende",
+    context: `Mağaza satışlarını (satış), reklam harcaması, çalışan sayısı ve mağaza alanı ile açıklayan ekonometrik model aşağıdaki gibidir.`,
+    model: `\\widehat{satış} = \\underset{(5.2)}{12.5} + \\underset{(0.4)}{2.0} (reklam) + \\underset{(0.15)}{0.45} (calisan) + \\underset{(0.02)}{0.08} (alan)`,
+    additionalInfo: `n = 85, \\quad R^2 = 0.724`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu model için $|t_{reklam}|$ değeri kaçtır?`,
+        type: 'multiple-choice',
+        options: ['3', '4', '5', '6'],
+        correctAnswer: '5',
+        solution: `$t_{reklam} = \\frac{2.0}{0.4} = 5$`
+      },
+      {
+        id: "b",
+        question: `Bu model için serbestlik derecesi nedir?`,
+        type: 'multiple-choice',
+        options: ['80', '81', '82', '84'],
+        correctAnswer: '81',
+        solution: `Serbestlik derecesi = $n - k - 1 = 85 - 3 - 1 = 81$`
+      },
+      {
+        id: "c",
+        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.05$ için kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['1.66', '1.96', '2.00', '2.64'],
+        correctAnswer: '2.00',
+        solution: `Serbestlik derecesi 81 için $t_{kritik} \\approx 2.00$`
+      },
+      {
+        id: "d",
+        question: `$\\beta_{reklam}$ için %95 güven aralığının alt ve üst sınırlarını hesaplayınız.`,
+        type: 'open-ended',
+        solution: `Alt sınır = $2.0 - 2.00 \\times 0.4 = 2.0 - 0.8 = 1.2$\nÜst sınır = $2.0 + 2.00 \\times 0.4 = 2.0 + 0.8 = 2.8$\n\n**Güven Aralığı: [1.2, 2.8]**`
+      },
+      {
+        id: "e",
+        question: `$H_0: \\beta_{reklam} = 0$ hipotezi $\\alpha = 0.05$ düzeyinde ________. Reklam ile satış arasında istatistiksel olarak anlamlı bir ilişki ________.`,
+        type: 'multiple-choice',
+        options: [
+          'reddedilmektedir / bulunmaktadır',
+          'reddedilmektedir / bulunmamaktadır',
+          'reddedilmemektedir / bulunmaktadır',
+          'reddedilmemektedir / bulunmamaktadır'
+        ],
+        correctAnswer: 'reddedilmektedir / bulunmaktadır',
+        solution: `$|t_{reklam}| = 5 > 2.00$ olduğundan $H_0$ **reddedilmektedir**. Reklam ile satış arasında istatistiksel olarak anlamlı bir ilişki **bulunmaktadır**.`
+      }
+    ]
+  },
+  {
+    id: "3-4",
+    difficulty: "Kolay",
+    title: "Verimlilik Modeli - Üretim",
+    context: `Fabrika verimliliğini (verim), makine sayısı, işçi sayısı ve hammadde kalitesi ile açıklayan ekonometrik model aşağıdaki gibidir.`,
+    model: `\\widehat{verim} = \\underset{(8.5)}{25.0} + \\underset{(0.6)}{1.8} (makine) + \\underset{(0.25)}{0.5} (işçi) + \\underset{(0.1)}{0.4} (kalite)`,
+    additionalInfo: `n = 64, \\quad R^2 = 0.689`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu model için $|t_{makine}|$ değeri kaçtır?`,
+        type: 'multiple-choice',
+        options: ['2', '3', '4', '5'],
+        correctAnswer: '3',
+        solution: `$t_{makine} = \\frac{1.8}{0.6} = 3$`
+      },
+      {
+        id: "b",
+        question: `Bu model için serbestlik derecesi nedir?`,
+        type: 'multiple-choice',
+        options: ['59', '60', '61', '63'],
+        correctAnswer: '60',
+        solution: `Serbestlik derecesi = $n - k - 1 = 64 - 3 - 1 = 60$`
+      },
+      {
+        id: "c",
+        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.05$ için kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['1.67', '1.96', '2.00', '2.66'],
+        correctAnswer: '2.00',
+        solution: `Serbestlik derecesi 60 için $t_{kritik} \\approx 2.00$`
+      },
+      {
+        id: "d",
+        question: `$\\beta_{makine}$ için %95 güven aralığının alt ve üst sınırlarını hesaplayınız.`,
+        type: 'open-ended',
+        solution: `Alt sınır = $1.8 - 2.00 \\times 0.6 = 1.8 - 1.2 = 0.6$\nÜst sınır = $1.8 + 2.00 \\times 0.6 = 1.8 + 1.2 = 3.0$\n\n**Güven Aralığı: [0.6, 3.0]**`
+      },
+      {
+        id: "e",
+        question: `$H_0: \\beta_{makine} = 0$ hipotezi $\\alpha = 0.05$ düzeyinde ________. Makine sayısı ile verimlilik arasında istatistiksel olarak anlamlı bir ilişki ________.`,
+        type: 'multiple-choice',
+        options: [
+          'reddedilmektedir / bulunmaktadır',
+          'reddedilmektedir / bulunmamaktadır',
+          'reddedilmemektedir / bulunmaktadır',
+          'reddedilmemektedir / bulunmamaktadır'
+        ],
+        correctAnswer: 'reddedilmektedir / bulunmaktadır',
+        solution: `$|t_{makine}| = 3 > 2.00$ olduğundan $H_0$ **reddedilmektedir**. Makine sayısı ile verimlilik arasında istatistiksel olarak anlamlı bir ilişki **bulunmaktadır**.`
+      }
+    ]
+  },
+  {
+    id: "3-5",
+    difficulty: "Orta",
+    title: "Tüketim Modeli - Hanehalkı",
+    context: `Hanehalkı tüketim harcamalarını (tüketim), gelir, tasarruf oranı ve hanehalkı büyüklüğü ile açıklayan ekonometrik model aşağıdaki gibidir.`,
+    model: `\\widehat{tüketim} = \\underset{(0.45)}{1.25} + \\underset{(0.015)}{0.06} (gelir) - \\underset{(0.02)}{0.04} (tasarruf) + \\underset{(0.08)}{0.32} (hane)`,
+    additionalInfo: `n = 245, \\quad R^2 = 0.812`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu model için $|t_{gelir}|$ değeri kaçtır?`,
+        type: 'multiple-choice',
+        options: ['2', '3', '4', '5'],
+        correctAnswer: '4',
+        solution: `$t_{gelir} = \\frac{0.06}{0.015} = 4$`
+      },
+      {
+        id: "b",
+        question: `Bu model için serbestlik derecesi nedir?`,
+        type: 'multiple-choice',
+        options: ['240', '241', '242', '244'],
+        correctAnswer: '241',
+        solution: `Serbestlik derecesi = $n - k - 1 = 245 - 3 - 1 = 241$`
+      },
+      {
+        id: "c",
+        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.05$ için kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['1.65', '1.96', '2.00', '2.58'],
+        correctAnswer: '1.96',
+        solution: `Serbestlik derecesi 241 için $t_{kritik} \\approx 1.96$`
+      },
+      {
+        id: "d",
+        question: `$\\beta_{gelir}$ için %95 güven aralığının alt ve üst sınırlarını hesaplayınız.`,
+        type: 'open-ended',
+        solution: `Alt sınır = $0.06 - 1.96 \\times 0.015 = 0.06 - 0.0294 = 0.0306$\nÜst sınır = $0.06 + 1.96 \\times 0.015 = 0.06 + 0.0294 = 0.0894$\n\n**Güven Aralığı: [0.031, 0.089]** (yaklaşık)`
+      },
+      {
+        id: "e",
+        question: `$H_0: \\beta_{gelir} = 0$ hipotezi $\\alpha = 0.05$ düzeyinde ________. Gelir ile tüketim arasında istatistiksel olarak anlamlı bir ilişki ________.`,
+        type: 'multiple-choice',
+        options: [
+          'reddedilmektedir / bulunmaktadır',
+          'reddedilmektedir / bulunmamaktadır',
+          'reddedilmemektedir / bulunmaktadır',
+          'reddedilmemektedir / bulunmamaktadır'
+        ],
+        correctAnswer: 'reddedilmektedir / bulunmaktadır',
+        solution: `$|t_{gelir}| = 4 > 1.96$ olduğundan $H_0$ **reddedilmektedir**. Gelir ile tüketim arasında istatistiksel olarak anlamlı bir ilişki **bulunmaktadır**.`
+      }
+    ]
+  },
+  {
+    id: "3-6",
+    difficulty: "Zor",
+    title: "Yatırım Modeli - Finans",
+    context: `Şirket yatırımlarını (yatırım), nakit akışı, borç oranı, aktif büyüklüğü ve karlılık ile açıklayan ekonometrik model aşağıdaki gibidir.`,
+    model: `\\widehat{yatırım} = \\underset{(1.5)}{-3.2} + \\underset{(0.02)}{0.08} (nakit) - \\underset{(0.01)}{0.02} (borç) + \\underset{(0.15)}{0.45} \\log(aktif) + \\underset{(0.025)}{0.05} (karlılık)`,
+    additionalInfo: `n = 380, \\quad R^2 = 0.623`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu model için $|t_{nakit}|$ değeri kaçtır?`,
+        type: 'multiple-choice',
+        options: ['2', '3', '4', '5'],
+        correctAnswer: '4',
+        solution: `$t_{nakit} = \\frac{0.08}{0.02} = 4$`
+      },
+      {
+        id: "b",
+        question: `Bu model için serbestlik derecesi nedir?`,
+        type: 'multiple-choice',
+        options: ['374', '375', '376', '379'],
+        correctAnswer: '375',
+        solution: `Serbestlik derecesi = $n - k - 1 = 380 - 4 - 1 = 375$`
+      },
+      {
+        id: "c",
+        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.01$ için kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['1.96', '2.33', '2.58', '2.81'],
+        correctAnswer: '2.58',
+        solution: `Serbestlik derecesi 375 ve $\\alpha = 0.01$ için $t_{kritik} \\approx 2.58$`
+      },
+      {
+        id: "d",
+        question: `$\\beta_{nakit}$ için %99 güven aralığının alt ve üst sınırlarını hesaplayınız.`,
+        type: 'open-ended',
+        solution: `Alt sınır = $0.08 - 2.58 \\times 0.02 = 0.08 - 0.0516 = 0.0284$\nÜst sınır = $0.08 + 2.58 \\times 0.02 = 0.08 + 0.0516 = 0.1316$\n\n**Güven Aralığı: [0.028, 0.132]** (yaklaşık)`
+      },
+      {
+        id: "e",
+        question: `$H_0: \\beta_{nakit} = 0$ hipotezi $\\alpha = 0.01$ düzeyinde ________. Nakit akışı ile yatırım arasında istatistiksel olarak anlamlı bir ilişki ________.`,
+        type: 'multiple-choice',
+        options: [
+          'reddedilmektedir / bulunmaktadır',
+          'reddedilmektedir / bulunmamaktadır',
+          'reddedilmemektedir / bulunmaktadır',
+          'reddedilmemektedir / bulunmamaktadır'
+        ],
+        correctAnswer: 'reddedilmektedir / bulunmaktadır',
+        solution: `$|t_{nakit}| = 4 > 2.58$ olduğundan $H_0$ **reddedilmektedir**. Nakit akışı ile yatırım arasında istatistiksel olarak anlamlı bir ilişki **bulunmaktadır**.`
+      }
+    ]
+  },
+  {
+    id: "3-7",
+    difficulty: "Zor",
+    title: "İhracat Modeli - Dış Ticaret",
+    context: `Firma ihracatını (ihracat), döviz kuru, üretim kapasitesi, Ar-Ge harcaması ve işgücü verimliliği ile açıklayan ekonometrik model aşağıdaki gibidir.`,
+    model: `\\log(\\widehat{ihracat}) = \\underset{(0.95)}{1.85} + \\underset{(0.05)}{0.15} (kur) + \\underset{(0.004)}{0.012} (kapasite) + \\underset{(0.08)}{0.32} \\log(ArGe) + \\underset{(0.03)}{0.09} (verimlilik)`,
+    additionalInfo: `n = 156, \\quad R^2 = 0.698`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu model için $|t_{kur}|$ değeri kaçtır?`,
+        type: 'multiple-choice',
+        options: ['2', '3', '4', '5'],
+        correctAnswer: '3',
+        solution: `$t_{kur} = \\frac{0.15}{0.05} = 3$`
+      },
+      {
+        id: "b",
+        question: `Bu model için serbestlik derecesi nedir?`,
+        type: 'multiple-choice',
+        options: ['150', '151', '152', '155'],
+        correctAnswer: '151',
+        solution: `Serbestlik derecesi = $n - k - 1 = 156 - 4 - 1 = 151$`
+      },
+      {
+        id: "c",
+        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.05$ için kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['1.65', '1.96', '2.00', '2.58'],
+        correctAnswer: '1.96',
+        solution: `Serbestlik derecesi 151 için $t_{kritik} \\approx 1.96$`
+      },
+      {
+        id: "d",
+        question: `$\\beta_{kur}$ için %95 güven aralığının alt ve üst sınırlarını hesaplayınız.`,
+        type: 'open-ended',
+        solution: `Alt sınır = $0.15 - 1.96 \\times 0.05 = 0.15 - 0.098 = 0.052$\nÜst sınır = $0.15 + 1.96 \\times 0.05 = 0.15 + 0.098 = 0.248$\n\n**Güven Aralığı: [0.052, 0.248]**`
+      },
+      {
+        id: "e",
+        question: `$H_0: \\beta_{kur} = 0$ hipotezi $\\alpha = 0.05$ düzeyinde ________. Döviz kuru ile ihracat arasında istatistiksel olarak anlamlı bir ilişki ________.`,
+        type: 'multiple-choice',
+        options: [
+          'reddedilmektedir / bulunmaktadır',
+          'reddedilmektedir / bulunmamaktadır',
+          'reddedilmemektedir / bulunmaktadır',
+          'reddedilmemektedir / bulunmamaktadır'
+        ],
+        correctAnswer: 'reddedilmektedir / bulunmaktadır',
+        solution: `$|t_{kur}| = 3 > 1.96$ olduğundan $H_0$ **reddedilmektedir**. Döviz kuru ile ihracat arasında istatistiksel olarak anlamlı bir ilişki **bulunmaktadır**.`
+      }
+    ]
+  },
+  {
+    id: "3-8",
+    difficulty: "Kolay",
+    title: "Kira Modeli - Emlak",
+    context: `Daire kiralarını (kira), daire alanı, kat sayısı ve bina yaşı ile açıklayan ekonometrik model aşağıdaki gibidir.`,
+    model: `\\widehat{kira} = \\underset{(120)}{450} + \\underset{(2.5)}{12.5} (alan) + \\underset{(15)}{30} (kat) - \\underset{(4)}{16} (bina\\_yaşı)`,
+    additionalInfo: `n = 92, \\quad R^2 = 0.756`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu model için $|t_{alan}|$ değeri kaçtır?`,
+        type: 'multiple-choice',
+        options: ['3', '4', '5', '6'],
+        correctAnswer: '5',
+        solution: `$t_{alan} = \\frac{12.5}{2.5} = 5$`
+      },
+      {
+        id: "b",
+        question: `Bu model için serbestlik derecesi nedir?`,
+        type: 'multiple-choice',
+        options: ['87', '88', '89', '91'],
+        correctAnswer: '88',
+        solution: `Serbestlik derecesi = $n - k - 1 = 92 - 3 - 1 = 88$`
+      },
+      {
+        id: "c",
+        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.05$ için kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['1.66', '1.96', '2.00', '2.63'],
+        correctAnswer: '2.00',
+        solution: `Serbestlik derecesi 88 için $t_{kritik} \\approx 2.00$`
+      },
+      {
+        id: "d",
+        question: `$\\beta_{alan}$ için %95 güven aralığının alt ve üst sınırlarını hesaplayınız.`,
+        type: 'open-ended',
+        solution: `Alt sınır = $12.5 - 2.00 \\times 2.5 = 12.5 - 5.0 = 7.5$\nÜst sınır = $12.5 + 2.00 \\times 2.5 = 12.5 + 5.0 = 17.5$\n\n**Güven Aralığı: [7.5, 17.5]**`
+      },
+      {
+        id: "e",
+        question: `$H_0: \\beta_{alan} = 0$ hipotezi $\\alpha = 0.05$ düzeyinde ________. Daire alanı ile kira arasında istatistiksel olarak anlamlı bir ilişki ________.`,
+        type: 'multiple-choice',
+        options: [
+          'reddedilmektedir / bulunmaktadır',
+          'reddedilmektedir / bulunmamaktadır',
+          'reddedilmemektedir / bulunmaktadır',
+          'reddedilmemektedir / bulunmamaktadır'
+        ],
+        correctAnswer: 'reddedilmektedir / bulunmaktadır',
+        solution: `$|t_{alan}| = 5 > 2.00$ olduğundan $H_0$ **reddedilmektedir**. Daire alanı ile kira arasında istatistiksel olarak anlamlı bir ilişki **bulunmaktadır**.`
+      }
+    ]
+  },
+  {
+    id: "3-9",
+    difficulty: "Zor",
+    title: "Büyüme Modeli - Makroekonomi",
+    context: `Ülke ekonomik büyümesini (büyüme), yatırım oranı, enflasyon, dış ticaret açıklığı ve eğitim düzeyi ile açıklayan ekonometrik model aşağıdaki gibidir.`,
+    model: `\\widehat{büyüme} = \\underset{(0.85)}{1.45} + \\underset{(0.02)}{0.08} (yatırım) - \\underset{(0.015)}{0.03} (enflasyon) + \\underset{(0.01)}{0.04} (açıklık) + \\underset{(0.05)}{0.15} (eğitim)`,
+    additionalInfo: `n = 124, \\quad R^2 = 0.567`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu model için $|t_{yatırım}|$ değeri kaçtır?`,
+        type: 'multiple-choice',
+        options: ['2', '3', '4', '5'],
+        correctAnswer: '4',
+        solution: `$t_{yatırım} = \\frac{0.08}{0.02} = 4$`
+      },
+      {
+        id: "b",
+        question: `Bu model için serbestlik derecesi nedir?`,
+        type: 'multiple-choice',
+        options: ['118', '119', '120', '123'],
+        correctAnswer: '119',
+        solution: `Serbestlik derecesi = $n - k - 1 = 124 - 4 - 1 = 119$`
+      },
+      {
+        id: "c",
+        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.10$ için kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['1.29', '1.66', '1.96', '2.36'],
+        correctAnswer: '1.66',
+        solution: `Serbestlik derecesi 119 ve $\\alpha = 0.10$ için $t_{kritik} \\approx 1.66$`
+      },
+      {
+        id: "d",
+        question: `$\\beta_{yatırım}$ için %90 güven aralığının alt ve üst sınırlarını hesaplayınız.`,
+        type: 'open-ended',
+        solution: `Alt sınır = $0.08 - 1.66 \\times 0.02 = 0.08 - 0.0332 = 0.0468$\nÜst sınır = $0.08 + 1.66 \\times 0.02 = 0.08 + 0.0332 = 0.1132$\n\n**Güven Aralığı: [0.047, 0.113]** (yaklaşık)`
+      },
+      {
+        id: "e",
+        question: `$H_0: \\beta_{yatırım} = 0$ hipotezi $\\alpha = 0.10$ düzeyinde ________. Yatırım oranı ile ekonomik büyüme arasında istatistiksel olarak anlamlı bir ilişki ________.`,
+        type: 'multiple-choice',
+        options: [
+          'reddedilmektedir / bulunmaktadır',
+          'reddedilmektedir / bulunmamaktadır',
+          'reddedilmemektedir / bulunmaktadır',
+          'reddedilmemektedir / bulunmamaktadır'
+        ],
+        correctAnswer: 'reddedilmektedir / bulunmaktadır',
+        solution: `$|t_{yatırım}| = 4 > 1.66$ olduğundan $H_0$ **reddedilmektedir**. Yatırım oranı ile ekonomik büyüme arasında istatistiksel olarak anlamlı bir ilişki **bulunmaktadır**.`
+      }
+    ]
+  },
+  {
+    id: "3-10",
+    difficulty: "Orta",
+    title: "Sağlık Modeli - Hastane",
+    context: `Hasta tedavi maliyetini (maliyet), yaş, kronik hastalık sayısı ve yatış süresi ile açıklayan ekonometrik model aşağıdaki gibidir.`,
+    model: `\\log(\\widehat{maliyet}) = \\underset{(0.25)}{5.5} + \\underset{(0.002)}{0.008} (yaş) + \\underset{(0.05)}{0.15} (kronik) + \\underset{(0.01)}{0.04} (yatış)`,
+    additionalInfo: `n = 215, \\quad R^2 = 0.634`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu model için $|t_{yaş}|$ değeri kaçtır?`,
+        type: 'multiple-choice',
+        options: ['2', '3', '4', '5'],
+        correctAnswer: '4',
+        solution: `$t_{yaş} = \\frac{0.008}{0.002} = 4$`
+      },
+      {
+        id: "b",
+        question: `Bu model için serbestlik derecesi nedir?`,
+        type: 'multiple-choice',
+        options: ['210', '211', '212', '214'],
+        correctAnswer: '211',
+        solution: `Serbestlik derecesi = $n - k - 1 = 215 - 3 - 1 = 211$`
+      },
+      {
+        id: "c",
+        question: `Bu model için çift yönlü testte, anlamlılık düzeyi $\\alpha = 0.05$ için kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['1.65', '1.96', '2.00', '2.58'],
+        correctAnswer: '1.96',
+        solution: `Serbestlik derecesi 211 için $t_{kritik} \\approx 1.96$`
+      },
+      {
+        id: "d",
+        question: `$\\beta_{yaş}$ için %95 güven aralığının alt ve üst sınırlarını hesaplayınız.`,
+        type: 'open-ended',
+        solution: `Alt sınır = $0.008 - 1.96 \\times 0.002 = 0.008 - 0.00392 = 0.00408$\nÜst sınır = $0.008 + 1.96 \\times 0.002 = 0.008 + 0.00392 = 0.01192$\n\n**Güven Aralığı: [0.004, 0.012]** (yaklaşık)`
+      },
+      {
+        id: "e",
+        question: `$H_0: \\beta_{yaş} = 0$ hipotezi $\\alpha = 0.05$ düzeyinde ________. Yaş ile tedavi maliyeti arasında istatistiksel olarak anlamlı bir ilişki ________.`,
+        type: 'multiple-choice',
+        options: [
+          'reddedilmektedir / bulunmaktadır',
+          'reddedilmektedir / bulunmamaktadır',
+          'reddedilmemektedir / bulunmaktadır',
+          'reddedilmemektedir / bulunmamaktadır'
+        ],
+        correctAnswer: 'reddedilmektedir / bulunmaktadır',
+        solution: `$|t_{yaş}| = 4 > 1.96$ olduğundan $H_0$ **reddedilmektedir**. Yaş ile tedavi maliyeti arasında istatistiksel olarak anlamlı bir ilişki **bulunmaktadır**.`
+      }
+    ]
+  }
+];
+
+// ===========================================
 // KATEGORİLER
 // ===========================================
 export const categories: Category[] = [
@@ -739,5 +1275,11 @@ export const categories: Category[] = [
     name: "t-Testi Hesaplama",
     description: "t-istatistiği, serbestlik derecesi ve kritik değer hesaplamaları (Çoktan seçmeli)",
     questions: category2Questions
+  },
+  {
+    id: "cat-3",
+    name: "Güven Aralığı",
+    description: "Güven aralığı hesaplama ve hipotez testi yorumlama (Karma)",
+    questions: category3Questions
   }
 ];
