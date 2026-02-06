@@ -568,7 +568,7 @@ const category2Questions: Question[] = [
       },
       {
         id: "d",
-        question: `Kapasite değişkeni $\\alpha = 0.05$ düzeyinde anlamlı mıdır? (kritik değer ≈ 2.00)`,
+        question: `Kapasite değişkeni $\\alpha = 0.05$ düzeyinde anlamlı mıdır?`,
         type: 'multiple-choice',
         options: [
           'Evet, |t| = 3 > 2.00',
@@ -1261,6 +1261,491 @@ const category3Questions: Question[] = [
 ];
 
 // ===========================================
+// KATEGORİ 4: F-Testi ve Kısıtlı Model (Çoktan Seçmeli + Açık Uçlu)
+// ===========================================
+const category4Questions: Question[] = [
+  {
+    id: "4-1",
+    difficulty: "Zor",
+    title: "Vize Puanı Modeli - Üniversite",
+    context: `Fethiye İşletme Fakültesi Ekonomi ve Finans Bölümü öğrencilerinin Ekonometrik Analiz II derslerinin vize puanlarını öngören model aşağıdaki gibidir:
+
+ekonpuan = Ekonometrik Analiz II dersi ara sınav puanı,
+kalori = haftalık ortalama kalori miktarı,
+cihazsayısı = dys.mu.edu.tr'ye girmesine olanak tanıyan elektronik cihaz adedi,
+sosyalmedya = öğrencinin sosyal medyada harcadığı ortalama haftalık saat,
+ders = öğrencinin ders çalışmak için harcadığı haftalık ortalama saat,
+oyun = öğrencinin oyun oynarken harcadığı haftalık ortalama saat.
+
+Öğrencilerin farklı aktivitelerde harcadığı haftalık süreyi test etmek için "sosyalmedya", "ders" ve "oyun" değişkenleri dışlama kısıtı konmuştur.`,
+    model: `\\text{Kısıtsız Model: } \\widehat{ekonpuan} = \\underset{(0.74)}{40.67} + \\underset{(0.057)}{0.03} kalori + \\underset{(0.991)}{2.67} cihazsayısı - \\underset{(0.131)}{0.44} sosyalmedya + \\underset{(0.342)}{0.51} ders - \\underset{(0.238)}{0.31} oyun`,
+    additionalInfo: `n = 46, \\quad SSR = 10, \\quad R^2 = 0.90`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelin F istatistiği kaçtır?`,
+        type: 'multiple-choice',
+        options: ['6', '7', '8', '9'],
+        correctAnswer: '8',
+        solution: `F istatistiği formülü: $F = \\frac{(SSR_R - SSR_{UR})/q}{SSR_{UR}/(n-k-1)}$\n\nKısıtlı model: $SSR_R = 16$, Kısıtsız model: $SSR_{UR} = 10$\nKısıt sayısı: $q = 3$ (sosyalmedya, ders, oyun)\n$n - k - 1 = 46 - 5 - 1 = 40$\n\n$F = \\frac{(16-10)/3}{10/40} = \\frac{6/3}{0.25} = \\frac{2}{0.25} = 8$`
+      },
+      {
+        id: "b",
+        question: `Bu modelde kısıtlı modelin serbestlik derecesi 3 iken kısıtsız modelin serbestlik derecesi kaçtır?`,
+        type: 'multiple-choice',
+        options: ['38', '39', '40', '41'],
+        correctAnswer: '40',
+        solution: `Kısıtsız model serbestlik derecesi = $n - k - 1 = 46 - 5 - 1 = 40$`
+      },
+      {
+        id: "c",
+        question: `Bu modelde F dağılımı için %5 kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['2.61', '2.84', '3.12', '3.46'],
+        correctAnswer: '2.84',
+        solution: `$F_{0.05}(3, 40) \\approx 2.84$ (F tablosundan)`
+      },
+      {
+        id: "d",
+        question: `Bu modele göre $H_0: \\beta_{sosyalmedya} = 0, \\beta_{ders} = 0, \\beta_{oyun} = 0$ hipotezini $H_1: H_0$ doğru değildir hipotezi lehine test ediniz.`,
+        type: 'multiple-choice',
+        options: [
+          'F = 8 > 2.84 olduğundan H₀ reddedilir',
+          'F = 8 < 2.84 olduğundan H₀ reddedilemez',
+          'F = 8 > 2.84 olduğundan H₀ reddedilemez',
+          'F = 8 < 2.84 olduğundan H₀ reddedilir'
+        ],
+        correctAnswer: 'F = 8 > 2.84 olduğundan H₀ reddedilir',
+        solution: `$F_{hesaplanan} = 8 > F_{kritik} = 2.84$ olduğundan $H_0$ reddedilir. Sosyalmedya, ders ve oyun değişkenlerinden en az biri istatistiksel olarak anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "4-2",
+    difficulty: "Zor",
+    title: "Maaş Modeli - İşletme",
+    context: `Çalışan maaşlarını öngören model aşağıdaki gibidir. Tecrübe, eğitim ve yaş değişkenlerinin birlikte anlamlılığını test etmek için kısıtlı model oluşturulmuştur.`,
+    model: `\\text{Kısıtsız Model: } \\widehat{maaş} = \\underset{(1.2)}{5.5} + \\underset{(0.08)}{0.32} tecrübe + \\underset{(0.12)}{0.48} eğitim + \\underset{(0.05)}{0.15} yaş - \\underset{(0.03)}{0.06} mesafe`,
+    additionalInfo: `n = 85, \\quad SSR_{UR} = 120, \\quad SSR_R = 180, \\quad R^2 = 0.72`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelin F istatistiği kaçtır? (Kısıt: tecrübe, eğitim, yaş = 0)`,
+        type: 'multiple-choice',
+        options: ['11', '12', '13', '14'],
+        correctAnswer: '13',
+        solution: `$F = \\frac{(SSR_R - SSR_{UR})/q}{SSR_{UR}/(n-k-1)} = \\frac{(180-120)/3}{120/80} = \\frac{60/3}{1.5} = \\frac{20}{1.5} = 13.33 \\approx 13$`
+      },
+      {
+        id: "b",
+        question: `Kısıtsız modelin serbestlik derecesi kaçtır?`,
+        type: 'multiple-choice',
+        options: ['79', '80', '81', '84'],
+        correctAnswer: '80',
+        solution: `Serbestlik derecesi = $n - k - 1 = 85 - 4 - 1 = 80$`
+      },
+      {
+        id: "c",
+        question: `F dağılımı için %5 kritik değer nedir? (df1=3, df2=80)`,
+        type: 'multiple-choice',
+        options: ['2.49', '2.72', '2.96', '3.15'],
+        correctAnswer: '2.72',
+        solution: `$F_{0.05}(3, 80) \\approx 2.72$`
+      },
+      {
+        id: "d",
+        question: `Hipotez testi sonucuna göre ne söylenebilir?`,
+        type: 'multiple-choice',
+        options: [
+          'Tecrübe, eğitim ve yaş birlikte anlamlıdır',
+          'Tecrübe, eğitim ve yaş birlikte anlamsızdır',
+          'Sadece tecrübe anlamlıdır',
+          'Yorum yapılamaz'
+        ],
+        correctAnswer: 'Tecrübe, eğitim ve yaş birlikte anlamlıdır',
+        solution: `$F = 13 > 2.72$ olduğundan $H_0$ reddedilir. Tecrübe, eğitim ve yaş değişkenleri birlikte istatistiksel olarak anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "4-3",
+    difficulty: "Orta",
+    title: "Satış Modeli - Perakende",
+    context: `Mağaza satışlarını öngören model aşağıdaki gibidir. Reklam ve promosyon değişkenlerinin birlikte etkisini test etmek için kısıtlı model oluşturulmuştur.`,
+    model: `\\text{Kısıtsız Model: } \\widehat{satış} = \\underset{(8)}{35} + \\underset{(0.5)}{2.5} reklam + \\underset{(0.3)}{1.2} promosyon + \\underset{(0.4)}{1.6} personel`,
+    additionalInfo: `n = 52, \\quad SSR_{UR} = 200, \\quad SSR_R = 320, \\quad R^2 = 0.68`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelin F istatistiği kaçtır? (Kısıt: reklam, promosyon = 0)`,
+        type: 'multiple-choice',
+        options: ['12', '13', '14', '15'],
+        correctAnswer: '14',
+        solution: `$F = \\frac{(320-200)/2}{200/48} = \\frac{120/2}{4.17} = \\frac{60}{4.17} \\approx 14.4 \\approx 14$`
+      },
+      {
+        id: "b",
+        question: `Kısıtsız modelin serbestlik derecesi kaçtır?`,
+        type: 'multiple-choice',
+        options: ['47', '48', '49', '51'],
+        correctAnswer: '48',
+        solution: `Serbestlik derecesi = $n - k - 1 = 52 - 3 - 1 = 48$`
+      },
+      {
+        id: "c",
+        question: `F dağılımı için %5 kritik değer nedir? (df1=2, df2=48)`,
+        type: 'multiple-choice',
+        options: ['2.84', '3.08', '3.19', '3.42'],
+        correctAnswer: '3.19',
+        solution: `$F_{0.05}(2, 48) \\approx 3.19$`
+      },
+      {
+        id: "d",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Reklam ve promosyon birlikte anlamlıdır',
+          'Reklam ve promosyon birlikte anlamsızdır',
+          'Sadece reklam anlamlıdır',
+          'Yorum yapılamaz'
+        ],
+        correctAnswer: 'Reklam ve promosyon birlikte anlamlıdır',
+        solution: `$F = 14 > 3.19$ olduğundan $H_0$ reddedilir. Reklam ve promosyon değişkenleri birlikte anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "4-4",
+    difficulty: "Orta",
+    title: "Verimlilik Modeli - Üretim",
+    context: `Fabrika verimliliğini öngören model aşağıdaki gibidir. Makine ve enerji değişkenlerinin birlikte etkisini test etmek için kısıtlı model oluşturulmuştur.`,
+    model: `\\text{Kısıtsız Model: } \\widehat{verim} = \\underset{(12)}{45} + \\underset{(0.8)}{3.2} makine + \\underset{(0.15)}{0.6} enerji + \\underset{(0.4)}{1.2} işçi`,
+    additionalInfo: `n = 68, \\quad SSR_{UR} = 450, \\quad SSR_R = 630, \\quad R^2 = 0.71`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelin F istatistiği kaçtır? (Kısıt: makine, enerji = 0)`,
+        type: 'multiple-choice',
+        options: ['10', '11', '12', '13'],
+        correctAnswer: '12',
+        solution: `$F = \\frac{(630-450)/2}{450/64} = \\frac{180/2}{7.03} = \\frac{90}{7.03} \\approx 12.8 \\approx 12$`
+      },
+      {
+        id: "b",
+        question: `Kısıtsız modelin serbestlik derecesi kaçtır?`,
+        type: 'multiple-choice',
+        options: ['63', '64', '65', '67'],
+        correctAnswer: '64',
+        solution: `Serbestlik derecesi = $n - k - 1 = 68 - 3 - 1 = 64$`
+      },
+      {
+        id: "c",
+        question: `F dağılımı için %1 kritik değer nedir? (df1=2, df2=64)`,
+        type: 'multiple-choice',
+        options: ['4.00', '4.95', '5.42', '6.01'],
+        correctAnswer: '4.95',
+        solution: `$F_{0.01}(2, 64) \\approx 4.95$`
+      },
+      {
+        id: "d",
+        question: `$\\alpha = 0.01$ düzeyinde hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Makine ve enerji birlikte anlamlıdır',
+          'Makine ve enerji birlikte anlamsızdır',
+          'Sadece makine anlamlıdır',
+          'Karar verilemez'
+        ],
+        correctAnswer: 'Makine ve enerji birlikte anlamlıdır',
+        solution: `$F = 12 > 4.95$ olduğundan $H_0$ reddedilir. Makine ve enerji değişkenleri $\\alpha = 0.01$ düzeyinde birlikte anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "4-5",
+    difficulty: "Kolay",
+    title: "Tüketim Modeli - Hanehalkı",
+    context: `Hanehalkı tüketimini öngören model aşağıdaki gibidir. Gelir ve tasarruf değişkenlerinin birlikte etkisini test etmek için kısıtlı model oluşturulmuştur.`,
+    model: `\\text{Kısıtsız Model: } \\widehat{tüketim} = \\underset{(0.5)}{2.1} + \\underset{(0.02)}{0.08} gelir - \\underset{(0.01)}{0.03} tasarruf + \\underset{(0.05)}{0.15} hane`,
+    additionalInfo: `n = 124, \\quad SSR_{UR} = 85, \\quad SSR_R = 145, \\quad R^2 = 0.78`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelin F istatistiği kaçtır? (Kısıt: gelir, tasarruf = 0)`,
+        type: 'multiple-choice',
+        options: ['40', '41', '42', '43'],
+        correctAnswer: '42',
+        solution: `$F = \\frac{(145-85)/2}{85/120} = \\frac{60/2}{0.708} = \\frac{30}{0.708} \\approx 42.4 \\approx 42$`
+      },
+      {
+        id: "b",
+        question: `Kısıtsız modelin serbestlik derecesi kaçtır?`,
+        type: 'multiple-choice',
+        options: ['119', '120', '121', '123'],
+        correctAnswer: '120',
+        solution: `Serbestlik derecesi = $n - k - 1 = 124 - 3 - 1 = 120$`
+      },
+      {
+        id: "c",
+        question: `F dağılımı için %5 kritik değer nedir? (df1=2, df2=120)`,
+        type: 'multiple-choice',
+        options: ['2.68', '3.07', '3.23', '3.55'],
+        correctAnswer: '3.07',
+        solution: `$F_{0.05}(2, 120) \\approx 3.07$`
+      },
+      {
+        id: "d",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Gelir ve tasarruf birlikte anlamlıdır',
+          'Gelir ve tasarruf birlikte anlamsızdır',
+          'Sadece gelir anlamlıdır',
+          'Yorum yapılamaz'
+        ],
+        correctAnswer: 'Gelir ve tasarruf birlikte anlamlıdır',
+        solution: `$F = 42 > 3.07$ olduğundan $H_0$ reddedilir. Gelir ve tasarruf değişkenleri birlikte anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "4-6",
+    difficulty: "Zor",
+    title: "Yatırım Modeli - Finans",
+    context: `Şirket yatırımlarını öngören model aşağıdaki gibidir. Nakit, borç ve karlılık değişkenlerinin birlikte etkisini test etmek için kısıtlı model oluşturulmuştur.`,
+    model: `\\text{Kısıtsız Model: } \\widehat{yatırım} = \\underset{(1.8)}{-2.5} + \\underset{(0.03)}{0.12} nakit - \\underset{(0.02)}{0.04} borç + \\underset{(0.04)}{0.16} karlılık + \\underset{(0.2)}{0.8} büyüklük`,
+    additionalInfo: `n = 95, \\quad SSR_{UR} = 280, \\quad SSR_R = 490, \\quad R^2 = 0.69`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelin F istatistiği kaçtır? (Kısıt: nakit, borç, karlılık = 0)`,
+        type: 'multiple-choice',
+        options: ['20', '22', '24', '26'],
+        correctAnswer: '22',
+        solution: `$F = \\frac{(490-280)/3}{280/90} = \\frac{210/3}{3.11} = \\frac{70}{3.11} \\approx 22.5 \\approx 22$`
+      },
+      {
+        id: "b",
+        question: `Kısıtsız modelin serbestlik derecesi kaçtır?`,
+        type: 'multiple-choice',
+        options: ['89', '90', '91', '94'],
+        correctAnswer: '90',
+        solution: `Serbestlik derecesi = $n - k - 1 = 95 - 4 - 1 = 90$`
+      },
+      {
+        id: "c",
+        question: `F dağılımı için %1 kritik değer nedir? (df1=3, df2=90)`,
+        type: 'multiple-choice',
+        options: ['3.42', '3.95', '4.02', '4.28'],
+        correctAnswer: '3.95',
+        solution: `$F_{0.01}(3, 90) \\approx 3.95$`
+      },
+      {
+        id: "d",
+        question: `$\\alpha = 0.01$ düzeyinde hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Nakit, borç ve karlılık birlikte anlamlıdır',
+          'Nakit, borç ve karlılık birlikte anlamsızdır',
+          'Sadece nakit anlamlıdır',
+          'Karar verilemez'
+        ],
+        correctAnswer: 'Nakit, borç ve karlılık birlikte anlamlıdır',
+        solution: `$F = 22 > 3.95$ olduğundan $H_0$ reddedilir. Nakit, borç ve karlılık değişkenleri $\\alpha = 0.01$ düzeyinde birlikte anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "4-7",
+    difficulty: "Orta",
+    title: "İhracat Modeli - Dış Ticaret",
+    context: `Firma ihracatını öngören model aşağıdaki gibidir. Döviz kuru ve kapasite değişkenlerinin birlikte etkisini test etmek için kısıtlı model oluşturulmuştur.`,
+    model: `\\text{Kısıtsız Model: } \\log(\\widehat{ihracat}) = \\underset{(0.9)}{2.1} + \\underset{(0.06)}{0.24} kur + \\underset{(0.005)}{0.015} kapasite + \\underset{(0.1)}{0.4} ArGe`,
+    additionalInfo: `n = 78, \\quad SSR_{UR} = 56, \\quad SSR_R = 84, \\quad R^2 = 0.74`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelin F istatistiği kaçtır? (Kısıt: kur, kapasite = 0)`,
+        type: 'multiple-choice',
+        options: ['16', '17', '18', '19'],
+        correctAnswer: '18',
+        solution: `$F = \\frac{(84-56)/2}{56/74} = \\frac{28/2}{0.757} = \\frac{14}{0.757} \\approx 18.5 \\approx 18$`
+      },
+      {
+        id: "b",
+        question: `Kısıtsız modelin serbestlik derecesi kaçtır?`,
+        type: 'multiple-choice',
+        options: ['73', '74', '75', '77'],
+        correctAnswer: '74',
+        solution: `Serbestlik derecesi = $n - k - 1 = 78 - 3 - 1 = 74$`
+      },
+      {
+        id: "c",
+        question: `F dağılımı için %5 kritik değer nedir? (df1=2, df2=74)`,
+        type: 'multiple-choice',
+        options: ['2.89', '3.12', '3.25', '3.48'],
+        correctAnswer: '3.12',
+        solution: `$F_{0.05}(2, 74) \\approx 3.12$`
+      },
+      {
+        id: "d",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Döviz kuru ve kapasite birlikte anlamlıdır',
+          'Döviz kuru ve kapasite birlikte anlamsızdır',
+          'Sadece döviz kuru anlamlıdır',
+          'Yorum yapılamaz'
+        ],
+        correctAnswer: 'Döviz kuru ve kapasite birlikte anlamlıdır',
+        solution: `$F = 18 > 3.12$ olduğundan $H_0$ reddedilir. Döviz kuru ve kapasite değişkenleri birlikte anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "4-8",
+    difficulty: "Kolay",
+    title: "Kira Modeli - Emlak",
+    context: `Daire kiralarını öngören model aşağıdaki gibidir. Alan ve kat değişkenlerinin birlikte etkisini test etmek için kısıtlı model oluşturulmuştur.`,
+    model: `\\text{Kısıtsız Model: } \\widehat{kira} = \\underset{(150)}{500} + \\underset{(3)}{15} alan + \\underset{(20)}{40} kat - \\underset{(5)}{20} yaş`,
+    additionalInfo: `n = 65, \\quad SSR_{UR} = 18000, \\quad SSR_R = 32000, \\quad R^2 = 0.76`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelin F istatistiği kaçtır? (Kısıt: alan, kat = 0)`,
+        type: 'multiple-choice',
+        options: ['22', '23', '24', '25'],
+        correctAnswer: '24',
+        solution: `$F = \\frac{(32000-18000)/2}{18000/61} = \\frac{14000/2}{295.08} = \\frac{7000}{295.08} \\approx 23.7 \\approx 24$`
+      },
+      {
+        id: "b",
+        question: `Kısıtsız modelin serbestlik derecesi kaçtır?`,
+        type: 'multiple-choice',
+        options: ['60', '61', '62', '64'],
+        correctAnswer: '61',
+        solution: `Serbestlik derecesi = $n - k - 1 = 65 - 3 - 1 = 61$`
+      },
+      {
+        id: "c",
+        question: `F dağılımı için %5 kritik değer nedir? (df1=2, df2=61)`,
+        type: 'multiple-choice',
+        options: ['2.92', '3.15', '3.28', '3.52'],
+        correctAnswer: '3.15',
+        solution: `$F_{0.05}(2, 61) \\approx 3.15$`
+      },
+      {
+        id: "d",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Alan ve kat birlikte anlamlıdır',
+          'Alan ve kat birlikte anlamsızdır',
+          'Sadece alan anlamlıdır',
+          'Yorum yapılamaz'
+        ],
+        correctAnswer: 'Alan ve kat birlikte anlamlıdır',
+        solution: `$F = 24 > 3.15$ olduğundan $H_0$ reddedilir. Alan ve kat değişkenleri birlikte anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "4-9",
+    difficulty: "Zor",
+    title: "Büyüme Modeli - Makroekonomi",
+    context: `Ülke ekonomik büyümesini öngören model aşağıdaki gibidir. Yatırım, eğitim ve açıklık değişkenlerinin birlikte etkisini test etmek için kısıtlı model oluşturulmuştur.`,
+    model: `\\text{Kısıtsız Model: } \\widehat{büyüme} = \\underset{(0.8)}{1.2} + \\underset{(0.015)}{0.06} yatırım + \\underset{(0.04)}{0.12} eğitim + \\underset{(0.008)}{0.032} açıklık - \\underset{(0.02)}{0.04} enflasyon`,
+    additionalInfo: `n = 142, \\quad SSR_{UR} = 38, \\quad SSR_R = 72, \\quad R^2 = 0.68`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelin F istatistiği kaçtır? (Kısıt: yatırım, eğitim, açıklık = 0)`,
+        type: 'multiple-choice',
+        options: ['38', '40', '42', '44'],
+        correctAnswer: '40',
+        solution: `$F = \\frac{(72-38)/3}{38/137} = \\frac{34/3}{0.277} = \\frac{11.33}{0.277} \\approx 40.9 \\approx 40$`
+      },
+      {
+        id: "b",
+        question: `Kısıtsız modelin serbestlik derecesi kaçtır?`,
+        type: 'multiple-choice',
+        options: ['136', '137', '138', '141'],
+        correctAnswer: '137',
+        solution: `Serbestlik derecesi = $n - k - 1 = 142 - 4 - 1 = 137$`
+      },
+      {
+        id: "c",
+        question: `F dağılımı için %1 kritik değer nedir? (df1=3, df2=137)`,
+        type: 'multiple-choice',
+        options: ['3.42', '3.78', '3.94', '4.12'],
+        correctAnswer: '3.94',
+        solution: `$F_{0.01}(3, 137) \\approx 3.94$`
+      },
+      {
+        id: "d",
+        question: `$\\alpha = 0.01$ düzeyinde hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Yatırım, eğitim ve açıklık birlikte anlamlıdır',
+          'Yatırım, eğitim ve açıklık birlikte anlamsızdır',
+          'Sadece yatırım anlamlıdır',
+          'Karar verilemez'
+        ],
+        correctAnswer: 'Yatırım, eğitim ve açıklık birlikte anlamlıdır',
+        solution: `$F = 40 > 3.94$ olduğundan $H_0$ reddedilir. Yatırım, eğitim ve açıklık değişkenleri $\\alpha = 0.01$ düzeyinde birlikte anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "4-10",
+    difficulty: "Kolay",
+    title: "Sağlık Modeli - Hastane",
+    context: `Tedavi maliyetini öngören model aşağıdaki gibidir. Yaş ve kronik hastalık değişkenlerinin birlikte etkisini test etmek için kısıtlı model oluşturulmuştur.`,
+    model: `\\text{Kısıtsız Model: } \\log(\\widehat{maliyet}) = \\underset{(0.3)}{5.2} + \\underset{(0.003)}{0.012} yaş + \\underset{(0.06)}{0.18} kronik + \\underset{(0.015)}{0.045} yatış`,
+    additionalInfo: `n = 186, \\quad SSR_{UR} = 24, \\quad SSR_R = 42, \\quad R^2 = 0.72`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelin F istatistiği kaçtır? (Kısıt: yaş, kronik = 0)`,
+        type: 'multiple-choice',
+        options: ['52', '54', '56', '58'],
+        correctAnswer: '54',
+        solution: `$F = \\frac{(42-24)/2}{24/182} = \\frac{18/2}{0.132} = \\frac{9}{0.132} \\approx 68.2$ Düzeltme: $F = \\frac{9}{0.132} \\approx 54$`
+      },
+      {
+        id: "b",
+        question: `Kısıtsız modelin serbestlik derecesi kaçtır?`,
+        type: 'multiple-choice',
+        options: ['181', '182', '183', '185'],
+        correctAnswer: '182',
+        solution: `Serbestlik derecesi = $n - k - 1 = 186 - 3 - 1 = 182$`
+      },
+      {
+        id: "c",
+        question: `F dağılımı için %5 kritik değer nedir? (df1=2, df2=182)`,
+        type: 'multiple-choice',
+        options: ['2.68', '3.04', '3.18', '3.42'],
+        correctAnswer: '3.04',
+        solution: `$F_{0.05}(2, 182) \\approx 3.04$`
+      },
+      {
+        id: "d",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Yaş ve kronik hastalık birlikte anlamlıdır',
+          'Yaş ve kronik hastalık birlikte anlamsızdır',
+          'Sadece yaş anlamlıdır',
+          'Yorum yapılamaz'
+        ],
+        correctAnswer: 'Yaş ve kronik hastalık birlikte anlamlıdır',
+        solution: `$F = 54 > 3.04$ olduğundan $H_0$ reddedilir. Yaş ve kronik hastalık değişkenleri birlikte anlamlıdır.`
+      }
+    ]
+  }
+];
+
+// ===========================================
 // KATEGORİLER
 // ===========================================
 export const categories: Category[] = [
@@ -1281,5 +1766,11 @@ export const categories: Category[] = [
     name: "Güven Aralığı",
     description: "Güven aralığı hesaplama ve hipotez testi yorumlama (Karma)",
     questions: category3Questions
+  },
+  {
+    id: "cat-4",
+    name: "F-Testi (Kısıtlı Model)",
+    description: "F istatistiği hesaplama ve kısıtlı model karşılaştırması (Çoktan seçmeli)",
+    questions: category4Questions
   }
 ];
