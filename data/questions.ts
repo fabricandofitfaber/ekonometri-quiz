@@ -762,9 +762,9 @@ const category3Questions: Question[] = [
       },
       {
         id: "d",
-        question: `$\\beta_{\\log(arsa)}$ için güven aralığı $[0.244 < \\beta_{\\log(arsa)} < \\text{____}]$ şeklinde hesaplanır. Üst sınırı bulunuz.`,
+        question: `$\\beta_{\\log(arsa)}$ için %95 güven aralığının alt ve üst sınırlarını hesaplayınız.`,
         type: 'open-ended',
-        solution: `Güven aralığı formülü: $\\hat{\\beta} \\pm t_{kritik} \\times se(\\hat{\\beta})$\n\nÜst sınır = $0.164 + 1.96 \\times 0.041 = 0.164 + 0.080 = 0.244$\nÜst sınır = $0.164 + 0.080 = 0.244$\n\nDolayısıyla: Alt sınır = $0.164 - 0.080 = 0.084$, Üst sınır = $0.244$\n\n**Cevap: 0.244** (veya yaklaşık 0.24)`
+        solution: `Güven aralığı formülü: $\\hat{\\beta} \\pm t_{kritik} \\times se(\\hat{\\beta})$\n\nAlt sınır = $0.164 - 1.96 \\times 0.041 = 0.164 - 0.080 = 0.084$\nÜst sınır = $0.164 + 1.96 \\times 0.041 = 0.164 + 0.080 = 0.244$\n\n**Güven Aralığı: [0.084, 0.244]**`
       },
       {
         id: "e",
@@ -1746,6 +1746,428 @@ oyun = öğrencinin oyun oynarken harcadığı haftalık ortalama saat.
 ];
 
 // ===========================================
+// KATEGORİ 5: Lagrange Çarpanı (LM) Testi
+// ===========================================
+const category5Questions: Question[] = [
+  {
+    id: "5-1",
+    difficulty: "Zor",
+    title: "Ücret Modeli - Üniversite",
+    context: `Ücret denklemi aşağıdaki gibidir:
+
+ücret = Kazanılan aylık ücreti,
+eğitim = kaç yıllık eğitim aldığını,
+deneyim = kaç yıl işte çalışmış olduğunu,
+sertifika = katıldığı kurslardan vb. almış olduğu toplam sertifika sayısını,
+dilsaat = yabancı dil öğrenmek için harcadığı haftalık ortalama saati göstermektedir.
+
+$\\beta_{sertifika} = 0, \\beta_{dilsaat} = 0$ hipotezlerini test etmek için Lagrange Çarpanı testine başvurulmuştur. q=2 dışlama kısıtlı model aşağıdaki gibidir:`,
+    model: `\\text{Kısıtsız: } \\widehat{ücret} = \\beta_0 + \\beta_1 eğitim + \\beta_2 deneyim + \\beta_3 sertifika + \\beta_4 dilsaat`,
+    additionalInfo: `\\text{Kısıtlı Model: } \\widehat{ücret} = \\beta_0 + \\beta_1 eğitim + \\beta_2 deneyim \\quad n = 175, \\quad R^2_R = 0.05`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelde Lagrange Çarpanı (LM) istatistiği kaçtır?`,
+        type: 'multiple-choice',
+        options: ['7.25', '8.00', '8.75', '9.50'],
+        correctAnswer: '8.75',
+        solution: `LM istatistiği formülü: $LM = n \\times R^2_R$\n\n$LM = 175 \\times 0.05 = 8.75$`
+      },
+      {
+        id: "b",
+        question: `Ki-kare dağılımına göre bu model için %5 anlamlılık seviyesinde kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['3.84', '5.02', '5.99', '7.81'],
+        correctAnswer: '5.99',
+        solution: `$\\chi^2_{0.05}(2) = 5.99$ (Ki-kare tablosundan, serbestlik derecesi = kısıt sayısı = 2)`
+      },
+      {
+        id: "c",
+        question: `$H_0: \\beta_{sertifika} = 0, \\beta_{dilsaat} = 0$ hipotezini, $H_1: H_0$ doğru değildir hipotezi lehine test ediniz.`,
+        type: 'multiple-choice',
+        options: [
+          'LM = 8.75 > 5.99 olduğundan H₀ reddedilir',
+          'LM = 8.75 < 5.99 olduğundan H₀ reddedilemez',
+          'LM = 8.75 > 5.99 olduğundan H₀ reddedilemez',
+          'LM = 8.75 < 5.99 olduğundan H₀ reddedilir'
+        ],
+        correctAnswer: 'LM = 8.75 > 5.99 olduğundan H₀ reddedilir',
+        solution: `$LM = 8.75 > \\chi^2_{kritik} = 5.99$ olduğundan $H_0$ reddedilir. Sertifika ve dilsaat değişkenlerinden en az biri istatistiksel olarak anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "5-2",
+    difficulty: "Zor",
+    title: "Satış Modeli - Perakende",
+    context: `Mağaza satışlarını öngören modelde reklam ve promosyon değişkenlerinin etkisini test etmek için Lagrange Çarpanı testine başvurulmuştur.
+
+$\\beta_{reklam} = 0, \\beta_{promosyon} = 0$ hipotezlerini test etmek için q=2 dışlama kısıtlı model kullanılmıştır.`,
+    model: `\\text{Kısıtsız: } \\widehat{satış} = \\beta_0 + \\beta_1 personel + \\beta_2 konum + \\beta_3 reklam + \\beta_4 promosyon`,
+    additionalInfo: `\\text{Kısıtlı Model: } \\widehat{satış} = \\beta_0 + \\beta_1 personel + \\beta_2 konum \\quad n = 120, \\quad R^2_R = 0.08`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelde Lagrange Çarpanı (LM) istatistiği kaçtır?`,
+        type: 'multiple-choice',
+        options: ['8.40', '9.00', '9.60', '10.20'],
+        correctAnswer: '9.60',
+        solution: `$LM = n \\times R^2_R = 120 \\times 0.08 = 9.60$`
+      },
+      {
+        id: "b",
+        question: `Ki-kare dağılımına göre bu model için %5 anlamlılık seviyesinde kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['3.84', '5.02', '5.99', '7.81'],
+        correctAnswer: '5.99',
+        solution: `$\\chi^2_{0.05}(2) = 5.99$`
+      },
+      {
+        id: "c",
+        question: `Hipotez testi sonucuna göre ne söylenebilir?`,
+        type: 'multiple-choice',
+        options: [
+          'Reklam ve promosyon değişkenleri modele eklenmelidir',
+          'Reklam ve promosyon değişkenleri modele eklenmemelidir',
+          'Sadece reklam değişkeni eklenmelidir',
+          'Yorum yapılamaz'
+        ],
+        correctAnswer: 'Reklam ve promosyon değişkenleri modele eklenmelidir',
+        solution: `$LM = 9.60 > 5.99$ olduğundan $H_0$ reddedilir. Reklam ve promosyon değişkenleri modele eklenmelidir.`
+      }
+    ]
+  },
+  {
+    id: "5-3",
+    difficulty: "Orta",
+    title: "Maaş Modeli - İşletme",
+    context: `Çalışan maaşlarını öngören modelde yaş ve kıdem değişkenlerinin etkisini test etmek için Lagrange Çarpanı testine başvurulmuştur.
+
+$\\beta_{yaş} = 0, \\beta_{kıdem} = 0$ hipotezlerini test etmek için q=2 dışlama kısıtlı model kullanılmıştır.`,
+    model: `\\text{Kısıtsız: } \\widehat{maaş} = \\beta_0 + \\beta_1 eğitim + \\beta_2 tecrübe + \\beta_3 yaş + \\beta_4 kıdem`,
+    additionalInfo: `\\text{Kısıtlı Model: } \\widehat{maaş} = \\beta_0 + \\beta_1 eğitim + \\beta_2 tecrübe \\quad n = 200, \\quad R^2_R = 0.04`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelde Lagrange Çarpanı (LM) istatistiği kaçtır?`,
+        type: 'multiple-choice',
+        options: ['6', '7', '8', '9'],
+        correctAnswer: '8',
+        solution: `$LM = n \\times R^2_R = 200 \\times 0.04 = 8$`
+      },
+      {
+        id: "b",
+        question: `Ki-kare dağılımına göre bu model için %5 anlamlılık seviyesinde kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['3.84', '5.02', '5.99', '7.81'],
+        correctAnswer: '5.99',
+        solution: `$\\chi^2_{0.05}(2) = 5.99$`
+      },
+      {
+        id: "c",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'H₀ reddedilir, değişkenler anlamlıdır',
+          'H₀ reddedilemez, değişkenler anlamsızdır',
+          'Karar verilemez',
+          'Daha fazla veriye ihtiyaç var'
+        ],
+        correctAnswer: 'H₀ reddedilir, değişkenler anlamlıdır',
+        solution: `$LM = 8 > 5.99$ olduğundan $H_0$ reddedilir. Yaş ve kıdem değişkenleri istatistiksel olarak anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "5-4",
+    difficulty: "Orta",
+    title: "Verimlilik Modeli - Üretim",
+    context: `Fabrika verimliliğini öngören modelde otomasyon ve kalite kontrol değişkenlerinin etkisini test etmek için Lagrange Çarpanı testine başvurulmuştur.
+
+$\\beta_{otomasyon} = 0, \\beta_{kalite} = 0$ hipotezlerini test etmek için q=2 dışlama kısıtlı model kullanılmıştır.`,
+    model: `\\text{Kısıtsız: } \\widehat{verim} = \\beta_0 + \\beta_1 işçi + \\beta_2 makine + \\beta_3 otomasyon + \\beta_4 kalite`,
+    additionalInfo: `\\text{Kısıtlı Model: } \\widehat{verim} = \\beta_0 + \\beta_1 işçi + \\beta_2 makine \\quad n = 85, \\quad R^2_R = 0.06`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelde Lagrange Çarpanı (LM) istatistiği kaçtır?`,
+        type: 'multiple-choice',
+        options: ['4.10', '4.60', '5.10', '5.60'],
+        correctAnswer: '5.10',
+        solution: `$LM = n \\times R^2_R = 85 \\times 0.06 = 5.10$`
+      },
+      {
+        id: "b",
+        question: `Ki-kare dağılımına göre bu model için %5 anlamlılık seviyesinde kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['3.84', '5.02', '5.99', '7.81'],
+        correctAnswer: '5.99',
+        solution: `$\\chi^2_{0.05}(2) = 5.99$`
+      },
+      {
+        id: "c",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'H₀ reddedilir, değişkenler modele eklenmelidir',
+          'H₀ reddedilemez, değişkenler modele eklenmemelidir',
+          'Karar verilemez',
+          'Daha fazla veriye ihtiyaç var'
+        ],
+        correctAnswer: 'H₀ reddedilemez, değişkenler modele eklenmemelidir',
+        solution: `$LM = 5.10 < 5.99$ olduğundan $H_0$ reddedilemez. Otomasyon ve kalite değişkenleri modele eklenmemelidir.`
+      }
+    ]
+  },
+  {
+    id: "5-5",
+    difficulty: "Kolay",
+    title: "Tüketim Modeli - Hanehalkı",
+    context: `Hanehalkı tüketimini öngören modelde eğlence ve ulaşım harcamaları değişkenlerinin etkisini test etmek için Lagrange Çarpanı testine başvurulmuştur.
+
+$\\beta_{eğlence} = 0, \\beta_{ulaşım} = 0$ hipotezlerini test etmek için q=2 dışlama kısıtlı model kullanılmıştır.`,
+    model: `\\text{Kısıtsız: } \\widehat{tüketim} = \\beta_0 + \\beta_1 gelir + \\beta_2 hane + \\beta_3 eğlence + \\beta_4 ulaşım`,
+    additionalInfo: `\\text{Kısıtlı Model: } \\widehat{tüketim} = \\beta_0 + \\beta_1 gelir + \\beta_2 hane \\quad n = 150, \\quad R^2_R = 0.07`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelde Lagrange Çarpanı (LM) istatistiği kaçtır?`,
+        type: 'multiple-choice',
+        options: ['9.50', '10.00', '10.50', '11.00'],
+        correctAnswer: '10.50',
+        solution: `$LM = n \\times R^2_R = 150 \\times 0.07 = 10.50$`
+      },
+      {
+        id: "b",
+        question: `Ki-kare dağılımına göre bu model için %1 anlamlılık seviyesinde kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['5.99', '7.81', '9.21', '10.60'],
+        correctAnswer: '9.21',
+        solution: `$\\chi^2_{0.01}(2) = 9.21$`
+      },
+      {
+        id: "c",
+        question: `$\\alpha = 0.01$ düzeyinde hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'H₀ reddedilir',
+          'H₀ reddedilemez',
+          'Karar verilemez',
+          'Daha fazla veriye ihtiyaç var'
+        ],
+        correctAnswer: 'H₀ reddedilir',
+        solution: `$LM = 10.50 > 9.21$ olduğundan $H_0$ reddedilir.`
+      }
+    ]
+  },
+  {
+    id: "5-6",
+    difficulty: "Zor",
+    title: "Yatırım Modeli - Finans",
+    context: `Şirket yatırımlarını öngören modelde likidite, risk ve büyüme değişkenlerinin etkisini test etmek için Lagrange Çarpanı testine başvurulmuştur.
+
+$\\beta_{likidite} = 0, \\beta_{risk} = 0, \\beta_{büyüme} = 0$ hipotezlerini test etmek için q=3 dışlama kısıtlı model kullanılmıştır.`,
+    model: `\\text{Kısıtsız: } \\widehat{yatırım} = \\beta_0 + \\beta_1 karlılık + \\beta_2 borç + \\beta_3 likidite + \\beta_4 risk + \\beta_5 büyüme`,
+    additionalInfo: `\\text{Kısıtlı Model: } \\widehat{yatırım} = \\beta_0 + \\beta_1 karlılık + \\beta_2 borç \\quad n = 180, \\quad R^2_R = 0.065`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelde Lagrange Çarpanı (LM) istatistiği kaçtır?`,
+        type: 'multiple-choice',
+        options: ['10.70', '11.20', '11.70', '12.20'],
+        correctAnswer: '11.70',
+        solution: `$LM = n \\times R^2_R = 180 \\times 0.065 = 11.70$`
+      },
+      {
+        id: "b",
+        question: `Ki-kare dağılımına göre bu model için %5 anlamlılık seviyesinde kritik değer nedir? (q=3)`,
+        type: 'multiple-choice',
+        options: ['5.99', '7.81', '9.49', '11.07'],
+        correctAnswer: '7.81',
+        solution: `$\\chi^2_{0.05}(3) = 7.81$ (serbestlik derecesi = kısıt sayısı = 3)`
+      },
+      {
+        id: "c",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Üç değişken de modele eklenmelidir',
+          'Üç değişken de modele eklenmemelidir',
+          'Sadece bir değişken eklenmelidir',
+          'Yorum yapılamaz'
+        ],
+        correctAnswer: 'Üç değişken de modele eklenmelidir',
+        solution: `$LM = 11.70 > 7.81$ olduğundan $H_0$ reddedilir. Likidite, risk ve büyüme değişkenleri modele eklenmelidir.`
+      }
+    ]
+  },
+  {
+    id: "5-7",
+    difficulty: "Orta",
+    title: "İhracat Modeli - Dış Ticaret",
+    context: `Firma ihracatını öngören modelde Ar-Ge ve patent değişkenlerinin etkisini test etmek için Lagrange Çarpanı testine başvurulmuştur.
+
+$\\beta_{ArGe} = 0, \\beta_{patent} = 0$ hipotezlerini test etmek için q=2 dışlama kısıtlı model kullanılmıştır.`,
+    model: `\\text{Kısıtsız: } \\log(\\widehat{ihracat}) = \\beta_0 + \\beta_1 kur + \\beta_2 kapasite + \\beta_3 ArGe + \\beta_4 patent`,
+    additionalInfo: `\\text{Kısıtlı Model: } \\log(\\widehat{ihracat}) = \\beta_0 + \\beta_1 kur + \\beta_2 kapasite \\quad n = 95, \\quad R^2_R = 0.055`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelde Lagrange Çarpanı (LM) istatistiği kaçtır?`,
+        type: 'multiple-choice',
+        options: ['4.73', '5.02', '5.23', '5.52'],
+        correctAnswer: '5.23',
+        solution: `$LM = n \\times R^2_R = 95 \\times 0.055 = 5.225 \\approx 5.23$`
+      },
+      {
+        id: "b",
+        question: `Ki-kare dağılımına göre bu model için %5 anlamlılık seviyesinde kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['3.84', '5.02', '5.99', '7.81'],
+        correctAnswer: '5.99',
+        solution: `$\\chi^2_{0.05}(2) = 5.99$`
+      },
+      {
+        id: "c",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'H₀ reddedilir, Ar-Ge ve patent anlamlıdır',
+          'H₀ reddedilemez, Ar-Ge ve patent anlamsızdır',
+          'Karar verilemez',
+          'Daha fazla veriye ihtiyaç var'
+        ],
+        correctAnswer: 'H₀ reddedilemez, Ar-Ge ve patent anlamsızdır',
+        solution: `$LM = 5.23 < 5.99$ olduğundan $H_0$ reddedilemez. Ar-Ge ve patent değişkenleri modele eklenmemelidir.`
+      }
+    ]
+  },
+  {
+    id: "5-8",
+    difficulty: "Kolay",
+    title: "Kira Modeli - Emlak",
+    context: `Daire kiralarını öngören modelde manzara ve güvenlik değişkenlerinin etkisini test etmek için Lagrange Çarpanı testine başvurulmuştur.
+
+$\\beta_{manzara} = 0, \\beta_{güvenlik} = 0$ hipotezlerini test etmek için q=2 dışlama kısıtlı model kullanılmıştır.`,
+    model: `\\text{Kısıtsız: } \\widehat{kira} = \\beta_0 + \\beta_1 alan + \\beta_2 kat + \\beta_3 manzara + \\beta_4 güvenlik`,
+    additionalInfo: `\\text{Kısıtlı Model: } \\widehat{kira} = \\beta_0 + \\beta_1 alan + \\beta_2 kat \\quad n = 80, \\quad R^2_R = 0.09`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelde Lagrange Çarpanı (LM) istatistiği kaçtır?`,
+        type: 'multiple-choice',
+        options: ['6.20', '6.80', '7.20', '7.80'],
+        correctAnswer: '7.20',
+        solution: `$LM = n \\times R^2_R = 80 \\times 0.09 = 7.20$`
+      },
+      {
+        id: "b",
+        question: `Ki-kare dağılımına göre bu model için %5 anlamlılık seviyesinde kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['3.84', '5.02', '5.99', '7.81'],
+        correctAnswer: '5.99',
+        solution: `$\\chi^2_{0.05}(2) = 5.99$`
+      },
+      {
+        id: "c",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Manzara ve güvenlik modele eklenmelidir',
+          'Manzara ve güvenlik modele eklenmemelidir',
+          'Sadece manzara eklenmelidir',
+          'Yorum yapılamaz'
+        ],
+        correctAnswer: 'Manzara ve güvenlik modele eklenmelidir',
+        solution: `$LM = 7.20 > 5.99$ olduğundan $H_0$ reddedilir. Manzara ve güvenlik değişkenleri modele eklenmelidir.`
+      }
+    ]
+  },
+  {
+    id: "5-9",
+    difficulty: "Zor",
+    title: "Büyüme Modeli - Makroekonomi",
+    context: `Ülke ekonomik büyümesini öngören modelde kurumsal kalite, altyapı ve teknoloji değişkenlerinin etkisini test etmek için Lagrange Çarpanı testine başvurulmuştur.
+
+$\\beta_{kurumsal} = 0, \\beta_{altyapı} = 0, \\beta_{teknoloji} = 0$ hipotezlerini test etmek için q=3 dışlama kısıtlı model kullanılmıştır.`,
+    model: `\\text{Kısıtsız: } \\widehat{büyüme} = \\beta_0 + \\beta_1 yatırım + \\beta_2 eğitim + \\beta_3 kurumsal + \\beta_4 altyapı + \\beta_5 teknoloji`,
+    additionalInfo: `\\text{Kısıtlı Model: } \\widehat{büyüme} = \\beta_0 + \\beta_1 yatırım + \\beta_2 eğitim \\quad n = 110, \\quad R^2_R = 0.085`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelde Lagrange Çarpanı (LM) istatistiği kaçtır?`,
+        type: 'multiple-choice',
+        options: ['8.35', '9.00', '9.35', '10.00'],
+        correctAnswer: '9.35',
+        solution: `$LM = n \\times R^2_R = 110 \\times 0.085 = 9.35$`
+      },
+      {
+        id: "b",
+        question: `Ki-kare dağılımına göre bu model için %5 anlamlılık seviyesinde kritik değer nedir? (q=3)`,
+        type: 'multiple-choice',
+        options: ['5.99', '7.81', '9.49', '11.07'],
+        correctAnswer: '7.81',
+        solution: `$\\chi^2_{0.05}(3) = 7.81$`
+      },
+      {
+        id: "c",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Üç değişken de anlamlıdır',
+          'Üç değişken de anlamsızdır',
+          'Sadece teknoloji anlamlıdır',
+          'Yorum yapılamaz'
+        ],
+        correctAnswer: 'Üç değişken de anlamlıdır',
+        solution: `$LM = 9.35 > 7.81$ olduğundan $H_0$ reddedilir. Kurumsal kalite, altyapı ve teknoloji değişkenleri anlamlıdır.`
+      }
+    ]
+  },
+  {
+    id: "5-10",
+    difficulty: "Kolay",
+    title: "Sağlık Modeli - Hastane",
+    context: `Tedavi maliyetini öngören modelde sigorta türü ve hastane tipi değişkenlerinin etkisini test etmek için Lagrange Çarpanı testine başvurulmuştur.
+
+$\\beta_{sigorta} = 0, \\beta_{hastane} = 0$ hipotezlerini test etmek için q=2 dışlama kısıtlı model kullanılmıştır.`,
+    model: `\\text{Kısıtsız: } \\log(\\widehat{maliyet}) = \\beta_0 + \\beta_1 yaş + \\beta_2 yatış + \\beta_3 sigorta + \\beta_4 hastane`,
+    additionalInfo: `\\text{Kısıtlı Model: } \\log(\\widehat{maliyet}) = \\beta_0 + \\beta_1 yaş + \\beta_2 yatış \\quad n = 220, \\quad R^2_R = 0.035`,
+    parts: [
+      {
+        id: "a",
+        question: `Bu modelde Lagrange Çarpanı (LM) istatistiği kaçtır?`,
+        type: 'multiple-choice',
+        options: ['6.70', '7.20', '7.70', '8.20'],
+        correctAnswer: '7.70',
+        solution: `$LM = n \\times R^2_R = 220 \\times 0.035 = 7.70$`
+      },
+      {
+        id: "b",
+        question: `Ki-kare dağılımına göre bu model için %5 anlamlılık seviyesinde kritik değer nedir?`,
+        type: 'multiple-choice',
+        options: ['3.84', '5.02', '5.99', '7.81'],
+        correctAnswer: '5.99',
+        solution: `$\\chi^2_{0.05}(2) = 5.99$`
+      },
+      {
+        id: "c",
+        question: `Hipotez testi sonucu nedir?`,
+        type: 'multiple-choice',
+        options: [
+          'Sigorta ve hastane tipi modele eklenmelidir',
+          'Sigorta ve hastane tipi modele eklenmemelidir',
+          'Sadece sigorta eklenmelidir',
+          'Yorum yapılamaz'
+        ],
+        correctAnswer: 'Sigorta ve hastane tipi modele eklenmelidir',
+        solution: `$LM = 7.70 > 5.99$ olduğundan $H_0$ reddedilir. Sigorta ve hastane tipi değişkenleri modele eklenmelidir.`
+      }
+    ]
+  }
+];
+
+// ===========================================
 // KATEGORİLER
 // ===========================================
 export const categories: Category[] = [
@@ -1772,5 +2194,11 @@ export const categories: Category[] = [
     name: "F-Testi (Kısıtlı Model)",
     description: "F istatistiği hesaplama ve kısıtlı model karşılaştırması (Çoktan seçmeli)",
     questions: category4Questions
+  },
+  {
+    id: "cat-5",
+    name: "LM Testi",
+    description: "Lagrange Çarpanı (LM) testi ve değişken ekleme kararı (Çoktan seçmeli)",
+    questions: category5Questions
   }
 ];
